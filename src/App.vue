@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView } from 'vue-router';
+import TheHeader from '@/components/TheHeader.vue';
 </script>
 
 <template>
-  <RouterView />
+  <main class="app">
+    <TheHeader />
+    <RouterView />
+  </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.app {
+  font-family: $font-main;
+}
+</style>
