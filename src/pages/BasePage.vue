@@ -18,13 +18,16 @@ const formattedTitle = computed(() => {
 
 <style lang="scss" scoped>
 .base-page {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
+  padding: 4rem;
   max-width: 1200px;
 
   &__title {
     font-size: calc(2rem + 4vmin);
     font-weight: 900;
-    margin: 4rem 2rem;
+    margin: 4rem 0;
   }
 }
 </style>

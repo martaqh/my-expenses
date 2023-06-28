@@ -30,7 +30,7 @@ const activeTab = ref('Expenses');
     opacity: 0;
   }
   to {
-    opacity: 0.5;
+    opacity: 0.2;
   }
 }
 .header {
@@ -42,7 +42,7 @@ const activeTab = ref('Expenses');
     font-weight: 900;
     color: $color-text-secondary;
     opacity: 0.5;
-    animation: appear 3s ease-in-out forwards;
+    animation: appear 2s ease-in-out forwards;
     @include mobile {
       display: none;
     }
