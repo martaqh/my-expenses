@@ -25,6 +25,14 @@ const activeTab = ref('Expenses');
 </template>
 
 <style lang="scss" scoped>
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
 .header {
   display: flex;
   justify-content: space-between;
@@ -33,7 +41,8 @@ const activeTab = ref('Expenses');
     font-size: calc(2rem + 6vmin);
     font-weight: 900;
     color: $color-text-secondary;
-    opacity: 0.2;
+    opacity: 0.5;
+    animation: appear 3s ease-in-out forwards;
     @include mobile {
       display: none;
     }
