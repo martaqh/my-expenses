@@ -27,7 +27,6 @@ const formattedPrice = (price: number) => {
 .expense-item {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
   grid-gap: 16px;
   height: fit-content;
   padding: 24px;
