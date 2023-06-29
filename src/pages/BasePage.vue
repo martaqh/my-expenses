@@ -21,7 +21,7 @@ const formattedTitle = computed(() => {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  padding: 0 4rem;
+  padding: 0 4rem 4rem;
   max-width: 1200px;
 
   &__title {

@@ -90,9 +90,20 @@ const extractedMonths = computed(() => {
   return uniqueMonths;
 });
 
+const extractedCategories = computed(() => {
+  const categories = expenses.map((item) => item.category);
+  const uniqueCategories = [...new Set(categories)];
+  return uniqueCategories;
+});
+
 const getTotalForMonth = (month: string) => {
-  const monthlyExpences = expenses.filter((item) => item.date.split('-')[1] === month);
-  return getTotalExpenses(monthlyExpences);
+  const monthlyExpenses = expenses.filter((item) => item.date.split('-')[1] === month);
+  return getTotalExpenses(monthlyExpenses);
+};
+
+const getTotalForCategory = (category: Category) => {
+  const categoryExpenses = expenses.filter((item) => item.category === category);
+  return getTotalExpenses(categoryExpenses);
 };
 
 const totalsPerMonth = computed(() => {
@@ -101,6 +112,14 @@ const totalsPerMonth = computed(() => {
     periodsAndTotals.push({ month: parseInt(month), total: getTotalForMonth(month) });
   }
   return periodsAndTotals;
+});
+
+const totalsPerCategory = computed(() => {
+  const categoriesAndTotals = [];
+  for (let category of extractedCategories.value) {
+    categoriesAndTotals.push({ category: category, total: getTotalForCategory(category) });
+  }
+  return categoriesAndTotals;
 });
 
 const paginationLength = computed(() => {
@@ -134,12 +153,16 @@ const totalPages = computed(() => {
           :items-per-page="itemsPerPage"
           active-color="teal-accent-4"
           rounded="0"
-        ></v-pagination>
+        />
       </div>
 
       <div class="expenses-page__summary">
-        <SummaryView :total="getTotalExpenses(expenses)" :periodsData="totalsPerMonth" />
         <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
+        <SummaryView
+          :total="getTotalExpenses(expenses)"
+          :periods-data="totalsPerMonth"
+          :categories-data="totalsPerCategory"
+        />
       </div>
     </div>
   </BasePage>
@@ -150,7 +173,7 @@ const totalPages = computed(() => {
   position: relative;
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 64px;
 
   &__items-list {
     display: flex;
@@ -158,8 +181,10 @@ const totalPages = computed(() => {
     gap: 16px;
   }
   &__image {
-    max-width: 400px;
-    max-height: 500px;
+    max-width: 380px;
+    position: absolute;
+    bottom: 400px;
+    right: 0px;
 
     @include mobile {
       display: none;
@@ -168,6 +193,7 @@ const totalPages = computed(() => {
   &__summary {
     display: flex;
     flex-direction: column;
+    align-self: center
     gap: 24px;
   }
 }
