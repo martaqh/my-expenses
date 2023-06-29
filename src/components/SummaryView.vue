@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Category } from '@/pages/ExpensesPage.vue';
+import type { Category } from '@/data';
 defineProps<{
   total: number;
   periodsData: { month: number; total: number }[];

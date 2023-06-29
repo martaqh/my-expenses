@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Category } from '@/pages/ExpensesPage.vue';
+import type { Category } from '@/data';
 
 const props = defineProps<{
   label: Category;

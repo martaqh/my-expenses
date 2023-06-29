@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CategoryChip from './CategoryChip.vue';
-import type { Expense } from '@/pages/ExpensesPage.vue';
+import type { Expense } from '@/data';
 
 defineProps<{
   expense: Expense;
