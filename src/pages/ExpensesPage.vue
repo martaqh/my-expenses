@@ -193,7 +193,6 @@ const totalPages = computed(() => {
   &__summary {
     display: flex;
     flex-direction: column;
-    align-self: center
     gap: 24px;
   }
 }

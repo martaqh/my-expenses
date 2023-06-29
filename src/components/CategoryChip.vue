@@ -33,10 +33,12 @@ const isCar = computed(() => {
   opacity: 0.8;
   &.blue {
     background-color: #def3fc;
+    color: #0c5878;
   }
 
   &.pink {
     background-color: #ffe5f0;
+    color: #f54991;
   }
 }
 </style>
