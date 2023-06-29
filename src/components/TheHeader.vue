@@ -36,9 +36,11 @@ const activeTab = ref('Expenses');
 .header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 
   &__active-label {
-    font-size: calc(2rem + 6vmin);
+    padding: 24px;
+    font-size: 3rem;
     font-weight: 900;
     color: $color-text-secondary;
     opacity: 0.5;
@@ -52,6 +54,11 @@ const activeTab = ref('Expenses');
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-right: 24px;
+
+  @include mobile {
+    margin: 16px auto;
+  }
 
   &__item {
     padding: 24px;
@@ -59,12 +66,18 @@ const activeTab = ref('Expenses');
     font-size: 1.1rem;
     font-weight: 700;
     color: $color-accent;
+    @include mobile {
+      font-size: 0.8rem;
+      padding: 16px;
+    }
+
     &:hover {
       cursor: pointer;
       color: $color-accent;
       text-shadow: 0px 0px 15px $color-accent;
       transition: all 0.2s ease-in;
     }
+
     &.active {
       span {
         border-bottom: 2px solid $color-accent;

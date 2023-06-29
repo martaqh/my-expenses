@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { Category } from '@/pages/ExpensesPage.vue';
 defineProps<{
   total: number;
   periodsData: { month: number; total: number }[];
+  categoriesData?: { category: Category; total: number }[];
 }>();
 
 const getMonthName = (monthNumber: number) => {

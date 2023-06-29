@@ -26,11 +26,11 @@ const isCar = computed(() => {
   display: flex;
   justify-content: center;
   align-items: baseline;
-  width: 30px;
+  width: 50px;
   height: fit-content;
   padding: 8px;
   font-size: 0.8rem;
-
+  opacity: 0.8;
   &.blue {
     background-color: #def3fc;
   }

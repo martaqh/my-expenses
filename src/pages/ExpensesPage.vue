@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import BasePage from '@/pages/BasePage.vue';
 import ExpenseItem from '@/components/ExpenseItem.vue';
 import SummaryView from '@/components/SummaryView.vue';
@@ -68,10 +68,16 @@ const expenses: Expense[] = [
     category: 'car',
     date: '2022-09-10',
   },
+  {
+    name: 'coffee',
+    price: 60,
+    category: 'food',
+    date: '2022-09-10',
+  },
 ];
 
-const getTotalExpenses = (array: Expense[]) => {
-  const expencesSum = array.reduce((accumulator, currentItem) => {
+const getTotalExpenses = (expencesData: Expense[]) => {
+  const expencesSum = expencesData.reduce((accumulator, currentItem) => {
     return accumulator + currentItem.price;
   }, 0);
   return expencesSum;
@@ -96,14 +102,41 @@ const totalsPerMonth = computed(() => {
   }
   return periodsAndTotals;
 });
+
+const paginationLength = computed(() => {
+  console.log(Math.ceil(expenses.length / 5));
+  return Math.ceil(expenses.length / 5);
+});
+
+const page = ref(1);
+const itemsPerPage = 5;
+
+const paginatedExpenseItems = computed(() => {
+  const startIndex = (page.value - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return expenses.slice(startIndex, endIndex);
+});
+
+const totalPages = computed(() => {
+  return Math.ceil(expenses.length / itemsPerPage);
+});
 </script>
 
 <template>
   <BasePage title="Expenses">
     <div class="expenses-page">
       <div class="expenses-page__items-list">
-        <ExpenseItem v-for="item of expenses" :expense="item" />
+        <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
+        <v-pagination
+          v-model="page"
+          :length="totalPages"
+          :total-visible="itemsPerPage"
+          :items-per-page="itemsPerPage"
+          active-color="teal-accent-4"
+          rounded="0"
+        ></v-pagination>
       </div>
+
       <div class="expenses-page__summary">
         <SummaryView :total="getTotalExpenses(expenses)" :periodsData="totalsPerMonth" />
         <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
