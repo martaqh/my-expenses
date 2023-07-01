@@ -72,6 +72,10 @@ const getCategoryIcon = (category: Category) => {
   &__image {
     padding: 48px 0 0;
     height: 240px;
+
+    @include mobile {
+      display: none;
+    }
   }
   &__subtotals {
     margin-top: 56px;

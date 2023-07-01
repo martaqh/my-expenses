@@ -148,6 +148,11 @@ watch(filteredExpenses, (newValue, oldValue) => {
   color: $color-text-secondary;
   font-size: 0.9rem;
 
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__date {
     display: flex;
     gap: 16px;

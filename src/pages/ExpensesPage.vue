@@ -82,12 +82,7 @@ const totalPages = computed(() => {
           class="expenses-page__filters"
           @expenses-filtered="handleFilteredExpenses"
         />
-        <SummaryView
-          class="expenses-page__summary"
-          :total="getTotalExpenses(expenses)"
-          :periods-data="totalsPerMonth"
-          :categories-data="totalsPerCategory"
-        />
+
         <div class="expenses-page__items-list">
           <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
           <v-pagination
@@ -100,6 +95,12 @@ const totalPages = computed(() => {
             next-icon="mdi-chevron-right"
           />
         </div>
+        <SummaryView
+          class="expenses-page__summary"
+          :total="getTotalExpenses(expenses)"
+          :periods-data="totalsPerMonth"
+          :categories-data="totalsPerCategory"
+        />
       </div>
     </div>
   </BasePage>
@@ -121,6 +122,11 @@ const totalPages = computed(() => {
     grid-template-rows: 240px 1.5fr;
     grid-column-gap: 64px;
     grid-row-gap: 48px;
+
+    @include mobile {
+      display: flex;
+      flex-direction: column;
+    }
   }
   &__filters {
     grid-column: 1/3;
@@ -136,15 +142,6 @@ const totalPages = computed(() => {
     gap: 16px;
     grid-row: 2/4;
     grid-column: 1/3;
-  }
-  &__image {
-    width: 480px;
-    grid-column: 2;
-    grid-row: 1;
-
-    @include mobile {
-      display: none;
-    }
   }
 }
 </style>
