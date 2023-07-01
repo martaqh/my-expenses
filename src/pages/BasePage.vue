@@ -20,14 +20,14 @@ const formattedTitle = computed(() => {
 .base-page {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  padding: 0 4rem 4rem;
+  margin: 2rem auto;
+  padding: 10rem 1rem;
   max-width: 1200px;
 
   &__title {
     font-size: calc(2rem + 4vmin);
     font-weight: 900;
-    margin: 4rem 0;
+    margin: 2rem 0;
   }
 }
 </style>
