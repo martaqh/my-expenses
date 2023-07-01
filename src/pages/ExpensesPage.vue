@@ -78,8 +78,17 @@ const totalPages = computed(() => {
     <div class="expenses-page">
       <h2 class="expenses-page__subtitle">Keep track on how you spend your hard-earned money</h2>
       <div class="expenses-page__content">
+        <FiltersSection
+          class="expenses-page__filters"
+          @expenses-filtered="handleFilteredExpenses"
+        />
+        <SummaryView
+          class="expenses-page__summary"
+          :total="getTotalExpenses(expenses)"
+          :periods-data="totalsPerMonth"
+          :categories-data="totalsPerCategory"
+        />
         <div class="expenses-page__items-list">
-          <FiltersSection @expenses-filtered="handleFilteredExpenses" />
           <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
           <v-pagination
             v-model="page"
@@ -89,15 +98,6 @@ const totalPages = computed(() => {
             active-color="teal-accent-4"
             prev-icon="mdi-chevron-left"
             next-icon="mdi-chevron-right"
-          />
-        </div>
-
-        <div class="expenses-page__summary">
-          <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
-          <SummaryView
-            :total="getTotalExpenses(expenses)"
-            :periods-data="totalsPerMonth"
-            :categories-data="totalsPerCategory"
           />
         </div>
       </div>
@@ -114,32 +114,37 @@ const totalPages = computed(() => {
   }
 
   &__content {
-    position: relative;
+    padding: 4rem 0;
+    width: 100%;
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    grid-gap: 64px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 240px 1.5fr;
+    grid-column-gap: 64px;
+    grid-row-gap: 48px;
+  }
+  &__filters {
+    grid-column: 1/3;
+  }
+  &__summary {
+    grid-column: 3;
+    grid-row: 1/4;
   }
 
   &__items-list {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    grid-row: 2/4;
+    grid-column: 1/3;
   }
   &__image {
-    max-width: 480px;
-    position: absolute;
-    top: -160px;
-    right: -90px;
+    width: 480px;
+    grid-column: 2;
+    grid-row: 1;
 
     @include mobile {
       display: none;
     }
-  }
-  &__summary {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 24px;
   }
 }
 </style>

@@ -28,8 +28,9 @@ const getCategoryIcon = (category: Category) => {
         </span>
       </h3>
     </div>
+    <img class="summary-view__image" src="/src/assets/undraw_graph.svg" />
     <div class="summary-view__subtotals">
-      <div class="summary-view__subtotals-section">
+      <div class="summary-view__subtotals-section months">
         <div class="summary-view__subtotals-section-item" v-for="item in periodsData">
           <strong>{{ getMonthName(item.month) }}</strong>
           <span>{{ `${item.total} PLN` }}</span>
@@ -68,17 +69,22 @@ const getCategoryIcon = (category: Category) => {
       font-size: 1.7rem;
     }
   }
+  &__image {
+    padding: 48px 0 0;
+    height: 240px;
+  }
   &__subtotals {
-    margin-top: 48px;
+    margin-top: 56px;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 64px;
     font-size: 1.2rem;
 
     &-section {
       display: flex;
       justify-content: center;
-      gap: 48px;
+      flex-direction: column;
+      gap: 36px;
       &-item {
         display: flex;
         flex-direction: column;

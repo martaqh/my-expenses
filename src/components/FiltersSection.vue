@@ -43,7 +43,7 @@ const filteredExpenses = computed(() => {
       selectedCategoryValue = 'food';
     }
 
-    const selectedNameValue = selectedName.value.toLowerCase();
+    const selectedNameValue = selectedName.value;
 
     return expenses.filter((item) => {
       const itemTimestamp = new Date(item.date).getTime();
@@ -81,8 +81,6 @@ watch(filteredExpenses, (newValue, oldValue) => {
 
 <template>
   <div class="filters-section">
-    <h6 class="filters-section__title">Choose the expenses you wish to see:</h6>
-
     <div class="filters-section__category">
       <v-chip-group v-model="selectedCategory" mandatory="force">
         <v-chip class="filters-section__category-chip" filter color="#00beba" size="large">
@@ -120,6 +118,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
         placeholder="Choose end date"
         :style="inputStyle"
         typeable
+        clearable
       />
     </div>
 
@@ -131,54 +130,60 @@ watch(filteredExpenses, (newValue, oldValue) => {
       density="compact"
       clearable
     />
-    <div class="filters-section__summary">
-      <p>{{ `Number of items: ${displayedItemsNumber}` }}</p>
-      <v-btn class="filters-section__clear" @click="clearFilters" elevation="1"
-        >Clear all filters</v-btn
-      >
-    </div>
+
+    <span class="filters-section__summary">{{ `Number of items: ${displayedItemsNumber}` }}</span>
+
+    <v-btn class="filters-section__clear" @click="clearFilters" elevation="1">
+      Clear all filters
+    </v-btn>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .filters-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 64px);
+  grid-gap: 8px;
   color: $color-text-secondary;
-  padding: 3rem 0;
   font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-  &__heading {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__title {
-    text-transform: uppercase;
-  }
 
   &__date {
     display: flex;
     gap: 16px;
+    grid-row: 3;
   }
 
   &__category {
+    grid-row: 1;
+
     &-chip {
       &-icon {
         margin-left: 8px;
       }
     }
   }
+  &__name {
+    height: 40px;
+    grid-row: 2;
+  }
 
   &__clear {
     width: fit-content;
+    grid-row: 3;
+    grid-column: 2;
+    justify-self: flex-end;
+    align-self: flex-start;
+    height: 34px;
   }
 
   &__summary {
+    font-size: 1.1rem;
     color: $color-text-secondary;
-    display: flex;
-    justify-content: space-between;
+    grid-row: 2;
+    grid-column: 2;
+    justify-self: flex-end;
+    align-self: flex-start;
   }
 }
 
