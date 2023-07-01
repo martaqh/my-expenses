@@ -52,7 +52,8 @@ const getCategoryIcon = (category: Category) => {
   flex-direction: column;
   border: 1px solid $color-border;
   padding-bottom: 48px;
-
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   &__total {
     padding: 24px;
     display: flex;

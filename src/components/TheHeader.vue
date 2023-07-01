@@ -41,7 +41,7 @@ const activeTab = ref('Expenses');
   top: 0;
   width: 100%;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.15) 0.95px 0.95px 1.6px;
+  box-shadow: $box-shadow;
   z-index: 5;
   &__active-label {
     padding: 24px;

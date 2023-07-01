@@ -30,7 +30,7 @@ const formattedPrice = (price: number) => {
   grid-gap: 16px;
   height: fit-content;
   padding: 24px;
-  border: 1px solid $color-border;
+  box-shadow: $box-shadow;
   border-radius: $border-radius;
 
   > * {
