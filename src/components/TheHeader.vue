@@ -37,7 +37,12 @@ const activeTab = ref('Expenses');
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 0.95px 0.95px 1.6px;
+  z-index: 5;
   &__active-label {
     padding: 24px;
     font-size: 3rem;
