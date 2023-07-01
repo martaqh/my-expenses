@@ -76,26 +76,30 @@ const totalPages = computed(() => {
 <template>
   <BasePage title="Expenses">
     <div class="expenses-page">
-      <div class="expenses-page__items-list">
-        <FiltersSection @expenses-filtered="handleFilteredExpenses" />
-        <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
-        <v-pagination
-          v-model="page"
-          :length="totalPages"
-          :total-visible="itemsPerPage"
-          :items-per-page="itemsPerPage"
-          active-color="teal-accent-4"
-          rounded="0"
-        />
-      </div>
+      <h2 class="expenses-page__subtitle">Keep track on how you spend your hard-earned money</h2>
+      <div class="expenses-page__content">
+        <div class="expenses-page__items-list">
+          <FiltersSection @expenses-filtered="handleFilteredExpenses" />
+          <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
+          <v-pagination
+            v-model="page"
+            :length="totalPages"
+            :total-visible="itemsPerPage"
+            :items-per-page="itemsPerPage"
+            active-color="teal-accent-4"
+            prev-icon="mdi-chevron-left"
+            next-icon="mdi-chevron-right"
+          />
+        </div>
 
-      <div class="expenses-page__summary">
-        <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
-        <SummaryView
-          :total="getTotalExpenses(expenses)"
-          :periods-data="totalsPerMonth"
-          :categories-data="totalsPerCategory"
-        />
+        <div class="expenses-page__summary">
+          <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
+          <SummaryView
+            :total="getTotalExpenses(expenses)"
+            :periods-data="totalsPerMonth"
+            :categories-data="totalsPerCategory"
+          />
+        </div>
       </div>
     </div>
   </BasePage>
@@ -103,10 +107,18 @@ const totalPages = computed(() => {
 
 <style lang="scss" scoped>
 .expenses-page {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  grid-gap: 64px;
+  &__subtitle {
+    font-size: 1.5rem;
+    color: $color-text-secondary;
+    margin-bottom: 1rem;
+  }
+
+  &__content {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-gap: 64px;
+  }
 
   &__items-list {
     display: flex;
@@ -114,10 +126,10 @@ const totalPages = computed(() => {
     gap: 16px;
   }
   &__image {
-    max-width: 380px;
+    max-width: 480px;
     position: absolute;
-    bottom: 400px;
-    right: 0px;
+    top: -160px;
+    right: -90px;
 
     @include mobile {
       display: none;
@@ -126,6 +138,7 @@ const totalPages = computed(() => {
   &__summary {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 24px;
   }
 }
