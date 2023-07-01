@@ -45,11 +45,12 @@ const formattedPrice = (price: number) => {
     &::before {
       content: '';
       display: inline-block;
-      height: 100%;
+      height: 24px;
       width: 5px;
       background-color: $color-accent;
       position: absolute;
       left: -24px;
+      bottom: -2px;
     }
   }
 

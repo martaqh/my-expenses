@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Category } from '@/data';
+import { expenses, type Category, type Expense } from '@/data';
 defineProps<{
   total: number;
   periodsData: { month: number; total: number }[];
@@ -11,27 +11,34 @@ const getMonthName = (monthNumber: number) => {
   const monthName = date.toLocaleString('en-US', { month: 'long' });
   return monthName;
 };
+
+const getCategoryIcon = (category: Category) => {
+  return category === 'car' ? 'mdi-car' : 'mdi-silverware-variant';
+};
 </script>
 
 <template>
   <div class="summary-view">
     <div class="summary-view__total">
-      <span>Total:</span>
-      <span>{{ total }}</span>
+      <h3>
+        Total:
+        <span>
+          <strong>{{ total }}</strong>
+          PLN
+        </span>
+      </h3>
     </div>
     <div class="summary-view__subtotals">
       <div class="summary-view__subtotals-section">
-        <h3>Per month</h3>
         <div class="summary-view__subtotals-section-item" v-for="item in periodsData">
-          <span>{{ `${getMonthName(item.month)}:` }}</span>
-          <span>{{ item.total }}</span>
+          <strong>{{ getMonthName(item.month) }}</strong>
+          <span>{{ `${item.total} PLN` }}</span>
         </div>
       </div>
       <div class="summary-view__subtotals-section">
-        <h3>Per category</h3>
         <div class="summary-view__subtotals-section-item" v-for="item in categoriesData">
-          <span>{{ `${item.category}:` }}</span>
-          <span>{{ item.total }}</span>
+          <v-icon :icon="getCategoryIcon(item.category)" />
+          <span>{{ `${item.total} PLN` }}</span>
         </div>
       </div>
     </div>
@@ -44,34 +51,38 @@ const getMonthName = (monthNumber: number) => {
   display: flex;
   flex-direction: column;
   border: 1px solid $color-border;
-  padding: 32px;
-  height: 100%;
+  padding-bottom: 48px;
 
-  &::before {
-    content: '';
-    display: inline-block;
-    height: 40px;
-    width: 5px;
-    background-color: $color-accent;
-    position: absolute;
-    left: 0;
-  }
   &__total {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
     text-transform: uppercase;
+    font-size: 1.5rem;
+    background-color: $color-accent;
+    color: white;
+
+    strong {
+      font-size: 1.7rem;
+    }
   }
   &__subtotals {
-    margin-top: 32px;
+    margin-top: 48px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 48px;
+    font-size: 1.2rem;
 
     &-section {
       display: flex;
-      flex-direction: column;
-
+      justify-content: center;
+      gap: 48px;
       &-item {
         display: flex;
-        justify-content: space-between;
-        gap: 32px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
       }
     }
   }

@@ -18,7 +18,7 @@ const isCar = computed(() => {
 <template>
   <div class="category-chip">
     <v-icon v-if="isCar" icon="mdi-car"></v-icon>
-    <v-icon v-if="isFood" icon="mdi-food"></v-icon>
+    <v-icon v-if="isFood" icon="mdi-silverware-variant"></v-icon>
   </div>
 </template>
 

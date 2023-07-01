@@ -94,7 +94,11 @@ watch(filteredExpenses, (newValue, oldValue) => {
         </v-chip>
         <v-chip class="filters-section__category-chip" filter color="#AB2A64" size="large">
           <span>Food</span>
-          <v-icon class="filters-section__category-chip-icon" icon="mdi-food" size="small"></v-icon>
+          <v-icon
+            class="filters-section__category-chip-icon"
+            icon="mdi-silverware-variant"
+            size="small"
+          ></v-icon>
         </v-chip>
       </v-chip-group>
     </div>
@@ -125,6 +129,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
       :items="extractedNames"
       label="Search expense by name"
       density="compact"
+      clearable
     />
     <div class="filters-section__summary">
       <p>{{ `Number of items: ${displayedItemsNumber}` }}</p>

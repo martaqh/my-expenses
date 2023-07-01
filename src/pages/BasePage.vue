@@ -17,13 +17,23 @@ const formattedTitle = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+    transition: rotateX(-10deg);
+  }
+  to {
+    opacity: 1;
+    transition: rotateX(0);
+  }
+}
 .base-page {
   display: flex;
   flex-direction: column;
   margin: 2rem auto;
   padding: 10rem 1rem;
   max-width: 1200px;
-
+  animation: transitionIn 1s;
   &__title {
     font-size: calc(2rem + 4vmin);
     font-weight: 900;
