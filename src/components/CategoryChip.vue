@@ -16,8 +16,9 @@ const isCar = computed(() => {
 </script>
 
 <template>
-  <div class="category-chip" :class="{ blue: isFood, pink: isCar }">
-    <span class="category-chip__label">{{ label }}</span>
+  <div class="category-chip">
+    <v-icon v-if="isCar" icon="mdi-car"></v-icon>
+    <v-icon v-if="isFood" icon="mdi-food"></v-icon>
   </div>
 </template>
 
@@ -26,19 +27,10 @@ const isCar = computed(() => {
   display: flex;
   justify-content: center;
   align-items: baseline;
-  width: 50px;
-  height: fit-content;
-  padding: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 8px 16px;
   font-size: 0.8rem;
-  opacity: 0.8;
-  &.blue {
-    background-color: #def3fc;
-    color: #0c5878;
-  }
-
-  &.pink {
-    background-color: #ffe5f0;
-    color: #f54991;
-  }
+  color: $color-text-secondary;
 }
 </style>

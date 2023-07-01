@@ -12,10 +12,10 @@ const formattedPrice = (price: number) => {
 </script>
 
 <template>
-  <div :key="expense.name" class="expense-item">
+  <div class="expense-item">
     <span class="expense-item__name">{{ expense.name }}</span>
     <span class="expense-item__date">{{ expense.date }}</span>
-    <CategoryChip :label="expense.category"></CategoryChip>
+    <CategoryChip class="expense-item__category" :label="expense.category"></CategoryChip>
     <div class="expense-item__price">
       <span class="expense-item__price-amount">{{ expense.price }}</span>
       <span class="expense-item__price-currency">PLN</span>
@@ -31,17 +31,17 @@ const formattedPrice = (price: number) => {
   height: fit-content;
   padding: 24px;
   border: 1px solid $color-border;
+  border-radius: $border-radius;
 
-  span {
-    margin: 8px 0;
-    width: fit-content;
+  > * {
+    display: flex;
+    align-self: baseline;
   }
 
   &__name {
     font-weight: 700;
     font-size: 1.1rem;
     position: relative;
-
     &::before {
       content: '';
       display: inline-block;
