@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import CategoryChip from '@/components/CategoryChip.vue';
+import { computed } from 'vue';
 import PriceItem from '@/components/PriceItem.vue';
-import type { Expense } from '@/data';
+import { expenses, type Expense } from '@/data';
 
-defineProps<{
+const props = defineProps<{
   expense: Expense;
 }>();
+
+const categoryIcon = computed(() => {
+  return props.expense.category === 'food' ? 'mdi-silverware-variant' : 'mdi-car';
+});
 </script>
 
 <template>
   <div class="expense-item">
     <span class="expense-item__name">{{ expense.name }}</span>
     <span class="expense-item__date">{{ expense.date }}</span>
-    <CategoryChip class="expense-item__category" :label="expense.category"></CategoryChip>
+    <v-icon class="expense-item__category" :icon="categoryIcon"></v-icon>
     <PriceItem class="expense-item__price" :amount="expense.price" currency="PLN"></PriceItem>
   </div>
 </template>
@@ -22,12 +26,11 @@ defineProps<{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
-  padding: 20px;
+  padding: 24px;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 
   > * {
-    display: flex;
     align-self: center;
   }
 
@@ -38,11 +41,11 @@ defineProps<{
     &::before {
       content: '';
       display: inline-block;
-      height: 20px;
-      width: 5px;
+      height: 24px;
+      width: 4px;
       background-color: $color-accent;
       position: absolute;
-      left: -20px;
+      left: -24px;
       bottom: -2px;
     }
     @include mobile {
@@ -55,6 +58,10 @@ defineProps<{
     @include mobile {
       font-size: 0.7rem;
     }
+  }
+  &__category {
+    color: $color-text-secondary;
+    font-size: 1.3rem;
   }
 }
 </style>
