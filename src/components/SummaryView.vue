@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { expenses, type Category, type Expense } from '@/data';
+import PriceItem from './PriceItem.vue';
+
 defineProps<{
   total: number;
   periodsData: { month: number; total: number }[];
@@ -21,25 +23,23 @@ const getCategoryIcon = (category: Category) => {
   <div class="summary-view">
     <div class="summary-view__total">
       <h3>
-        Total:
-        <span>
-          <strong>{{ total }}</strong>
-          PLN
-        </span>
+        <span> Total:</span>
+        <PriceItem :amount="total" currency="PLN" size="large" />
       </h3>
     </div>
-    <img class="summary-view__image" src="/src/assets/undraw_graph.svg" />
+
     <div class="summary-view__subtotals">
-      <div class="summary-view__subtotals-section months">
+      <div class="summary-view__subtotals-section">
         <div class="summary-view__subtotals-section-item" v-for="item in periodsData">
           <strong>{{ getMonthName(item.month) }}</strong>
-          <span>{{ `${item.total} PLN` }}</span>
+          <PriceItem :amount="item.total" currency="PLN"></PriceItem>
         </div>
       </div>
+      <v-divider></v-divider>
       <div class="summary-view__subtotals-section">
         <div class="summary-view__subtotals-section-item" v-for="item in categoriesData">
           <v-icon :icon="getCategoryIcon(item.category)" />
-          <span>{{ `${item.total} PLN` }}</span>
+          <PriceItem :amount="item.total" currency="PLN"></PriceItem>
         </div>
       </div>
     </div>
@@ -51,49 +51,43 @@ const getCategoryIcon = (category: Category) => {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid $color-border;
-  padding-bottom: 48px;
   border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  border: 2px solid $color-accent;
+
   &__total {
     padding: 24px;
     display: flex;
     justify-content: center;
-    gap: 24px;
+
     text-transform: uppercase;
     font-size: 1.5rem;
     background-color: $color-accent;
     color: white;
 
-    strong {
-      font-size: 1.7rem;
+    h3 {
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
     }
   }
-  &__image {
-    padding: 48px 0 0;
-    height: 240px;
 
-    @include mobile {
-      display: none;
-    }
-  }
   &__subtotals {
-    margin-top: 56px;
+    padding: 48px;
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 36px;
     font-size: 1.2rem;
 
     &-section {
       display: flex;
       justify-content: center;
       flex-direction: column;
-      gap: 36px;
+      gap: 16px;
+
       &-item {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 8px;
+        justify-content: space-between;
       }
     }
   }

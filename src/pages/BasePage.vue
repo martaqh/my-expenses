@@ -31,13 +31,17 @@ const formattedTitle = computed(() => {
   display: flex;
   flex-direction: column;
   margin: 2rem auto;
-  padding: 10rem 1rem;
+  padding: 10rem 3rem;
   max-width: 1200px;
   animation: transitionIn 1s;
   &__title {
     font-size: calc(2rem + 4vmin);
     font-weight: 900;
     margin: 2rem 0;
+  }
+
+  @include mobile {
+    padding: 5rem 2rem;
   }
 }
 </style>

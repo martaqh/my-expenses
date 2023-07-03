@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CategoryChip from './CategoryChip.vue';
+import PriceItem from './PriceItem.vue';
 import type { Expense } from '@/data';
 
 defineProps<{
@@ -16,10 +17,7 @@ const formattedPrice = (price: number) => {
     <span class="expense-item__name">{{ expense.name }}</span>
     <span class="expense-item__date">{{ expense.date }}</span>
     <CategoryChip class="expense-item__category" :label="expense.category"></CategoryChip>
-    <div class="expense-item__price">
-      <span class="expense-item__price-amount">{{ expense.price }}</span>
-      <span class="expense-item__price-currency">PLN</span>
-    </div>
+    <PriceItem :amount="expense.price" currency="PLN"></PriceItem>
   </div>
 </template>
 
@@ -29,7 +27,7 @@ const formattedPrice = (price: number) => {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
   height: fit-content;
-  padding: 24px;
+  padding: 20px;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 
@@ -49,27 +47,13 @@ const formattedPrice = (price: number) => {
       width: 5px;
       background-color: $color-accent;
       position: absolute;
-      left: -24px;
+      left: -20px;
       bottom: -2px;
     }
   }
 
   &__date {
     color: $color-text-secondary;
-  }
-
-  &__price {
-    display: flex;
-    align-items: baseline;
-    justify-content: flex-end;
-    gap: 8px;
-
-    &-amount {
-      font-size: 1.3rem;
-    }
-    &-currency {
-      font-size: 0.8rem;
-    }
   }
 }
 </style>

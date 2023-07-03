@@ -70,7 +70,10 @@ const inputStyle = computed(() => {
   return {
     border: '1px solid grey',
     'border-radius': '4px',
-    padding: '4px 8px',
+    padding: '8px 16px',
+    'max-width': '300px',
+    height: '52px',
+    'font-size': '1rem',
   };
 });
 
@@ -121,32 +124,40 @@ watch(filteredExpenses, (newValue, oldValue) => {
         clearable
       />
     </div>
+    <div class="filters-section__name">
+      <v-autocomplete
+        v-model="selectedName"
+        :items="extractedNames"
+        label="Search expense by name"
+        hide-details
+        clearable
+      />
+    </div>
 
-    <v-autocomplete
-      class="filters-section__name"
-      v-model="selectedName"
-      :items="extractedNames"
-      label="Search expense by name"
-      density="compact"
-      clearable
-    />
+    <div class="filters-section__summary">
+      <p>{{ `Items: ${displayedItemsNumber}` }}</p>
 
-    <span class="filters-section__summary">{{ `Number of items: ${displayedItemsNumber}` }}</span>
-
-    <v-btn class="filters-section__clear" @click="clearFilters" elevation="1">
-      Clear all filters
-    </v-btn>
+      <v-btn class="filters-section__clear" @click="clearFilters" elevation="1" size="large">
+        Clear all filters
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .filters-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(3, 64px);
-  grid-gap: 8px;
+  margin: 36px 0 48px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   color: $color-text-secondary;
   font-size: 0.9rem;
+
+  > * {
+    align-self: flex-start;
+    width: 100%;
+  }
 
   @include mobile {
     display: flex;
@@ -156,39 +167,31 @@ watch(filteredExpenses, (newValue, oldValue) => {
   &__date {
     display: flex;
     gap: 16px;
-    grid-row: 3;
+
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   &__category {
-    grid-row: 1;
-
     &-chip {
       &-icon {
         margin-left: 8px;
       }
     }
   }
-  &__name {
-    height: 40px;
-    grid-row: 2;
-  }
 
   &__clear {
     width: fit-content;
-    grid-row: 3;
-    grid-column: 2;
     justify-self: flex-end;
-    align-self: flex-start;
-    height: 34px;
   }
 
   &__summary {
     font-size: 1.1rem;
     color: $color-text-secondary;
-    grid-row: 2;
-    grid-column: 2;
-    justify-self: flex-end;
-    align-self: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

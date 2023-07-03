@@ -77,71 +77,87 @@ const totalPages = computed(() => {
   <BasePage title="Expenses">
     <div class="expenses-page">
       <h2 class="expenses-page__subtitle">Keep track on how you spend your hard-earned money</h2>
-      <div class="expenses-page__content">
-        <FiltersSection
-          class="expenses-page__filters"
-          @expenses-filtered="handleFilteredExpenses"
-        />
+      <FiltersSection class="expenses-page__filters" @expenses-filtered="handleFilteredExpenses" />
 
-        <div class="expenses-page__items-list">
-          <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
-          <v-pagination
-            v-model="page"
-            :length="totalPages"
-            :total-visible="itemsPerPage"
-            :items-per-page="itemsPerPage"
-            active-color="teal-accent-4"
-            prev-icon="mdi-chevron-left"
-            next-icon="mdi-chevron-right"
-          />
-        </div>
-        <SummaryView
-          class="expenses-page__summary"
-          :total="getTotalExpenses(expenses)"
-          :periods-data="totalsPerMonth"
-          :categories-data="totalsPerCategory"
-        />
+      <div class="expenses-page__items-list">
+        <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
       </div>
+      <v-pagination
+        class="expenses-page__pagination"
+        v-model="page"
+        :length="totalPages"
+        :total-visible="itemsPerPage"
+        :items-per-page="itemsPerPage"
+        active-color="teal-accent-4"
+        prev-icon="mdi-chevron-left"
+        next-icon="mdi-chevron-right"
+      />
+      <SummaryView
+        class="expenses-page__summary"
+        :total="getTotalExpenses(expenses)"
+        :periods-data="totalsPerMonth"
+        :categories-data="totalsPerCategory"
+      />
+      <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
     </div>
   </BasePage>
 </template>
 
 <style lang="scss" scoped>
 .expenses-page {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 40px 1fr 1.2fr 80px;
+  grid-template-columns: 2fr 1fr;
+  grid-column-gap: 100px;
+  grid-row-gap: 24px;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__subtitle {
     font-size: 1.5rem;
     color: $color-text-secondary;
-    margin-bottom: 1rem;
-  }
-
-  &__content {
-    padding: 4rem 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 240px 1.5fr;
-    grid-column-gap: 64px;
-    grid-row-gap: 48px;
-
-    @include mobile {
-      display: flex;
-      flex-direction: column;
-    }
+    grid-row: 1;
+    grid-column: 1;
+    align-self: flex-end;
   }
   &__filters {
-    grid-column: 1/3;
+    grid-row: 2/3;
+    grid-column: 1;
   }
+
   &__summary {
-    grid-column: 3;
-    grid-row: 1/4;
+    grid-column: 2;
+    grid-row: 3;
   }
 
   &__items-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    grid-row: 2/4;
-    grid-column: 1/3;
+    justify-content: space-between;
+    grid-row: 3/4;
+    grid-column: 1;
+  }
+
+  &__pagination {
+    grid-row: 4;
+  }
+
+  &__image {
+    max-width: 320px;
+    min-width: 200px;
+    // position: absolute;
+    // right: 200px;
+    // top: 240px;
+    justify-self: flex-end;
+    grid-row: 1;
+    grid-column: 2;
+    @include mobile {
+      display: none;
+    }
   }
 }
 </style>
