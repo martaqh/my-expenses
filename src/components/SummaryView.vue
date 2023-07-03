@@ -88,7 +88,7 @@ const getCategoryIcon = (category: Category) => {
       justify-content: space-around;
       font-size: 1rem;
       flex-direction: row;
-      padding: 24px;
+      padding: 20px;
     }
 
     &-divider {

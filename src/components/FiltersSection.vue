@@ -59,7 +59,7 @@ const filteredExpenses = computed(() => {
 });
 
 const itemsNames = computed(() => {
-  const names = expenses.map((item) => item.name);
+  const names = filteredExpenses.value.map((item) => item.name);
   const uniqueNames = [...new Set(names)];
   return uniqueNames;
 });
@@ -136,6 +136,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
       <v-autocomplete
         v-model="selectedName"
         :items="itemsNames"
+        placeholder="Start typing expense name or select it from the list"
         label="Search expense by name"
         variant="solo"
         hide-details
@@ -159,7 +160,6 @@ watch(filteredExpenses, (newValue, oldValue) => {
   display: flex;
   flex-direction: column;
   color: $color-text-secondary;
-  font-size: 0.9rem;
 
   > * {
     align-self: flex-start;
@@ -182,8 +182,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
 
   &__date {
     display: flex;
-    gap: 16px;
-    width: fit-content;
+    gap: 8px;
 
     @include mobile {
       flex-wrap: wrap;
@@ -208,14 +207,14 @@ watch(filteredExpenses, (newValue, oldValue) => {
   }
 
   &__summary {
-    font-size: 1.1rem;
     color: $color-text-secondary;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 1rem;
 
     @include mobile {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
   }
 }
@@ -225,6 +224,9 @@ watch(filteredExpenses, (newValue, oldValue) => {
   height: 52px;
   box-shadow: $box-shadow;
   padding-left: 16px;
+  @include mobile {
+    font-size: 0.9rem;
+  }
 }
 
 .v3dp__datepicker {
