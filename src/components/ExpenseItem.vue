@@ -17,7 +17,7 @@ const formattedPrice = (price: number) => {
     <span class="expense-item__name">{{ expense.name }}</span>
     <span class="expense-item__date">{{ expense.date }}</span>
     <CategoryChip class="expense-item__category" :label="expense.category"></CategoryChip>
-    <PriceItem :amount="expense.price" currency="PLN"></PriceItem>
+    <PriceItem class="expense-item__price" :amount="expense.price" currency="PLN"></PriceItem>
   </div>
 </template>
 
@@ -26,14 +26,14 @@ const formattedPrice = (price: number) => {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
-  height: fit-content;
+
   padding: 20px;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
 
   > * {
     display: flex;
-    align-self: baseline;
+    align-self: center;
   }
 
   &__name {
@@ -43,17 +43,23 @@ const formattedPrice = (price: number) => {
     &::before {
       content: '';
       display: inline-block;
-      height: 24px;
+      height: 20px;
       width: 5px;
       background-color: $color-accent;
       position: absolute;
       left: -20px;
       bottom: -2px;
     }
+    @include mobile {
+      font-size: 0.9rem;
+    }
   }
 
   &__date {
     color: $color-text-secondary;
+    @include mobile {
+      font-size: 0.7rem;
+    }
   }
 }
 </style>

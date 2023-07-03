@@ -27,6 +27,9 @@ withDefaults(
 
   &__amount {
     font-size: 1.3rem;
+    @include mobile {
+      font-size: 1rem;
+    }
     &.large {
       font-size: 1.8rem;
       font-weight: 700;

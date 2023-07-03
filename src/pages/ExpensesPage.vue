@@ -69,7 +69,7 @@ const paginatedExpenseItems = computed(() => {
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(expenses.length / itemsPerPage);
+  return Math.ceil(filteredData.value.length / itemsPerPage);
 });
 </script>
 
@@ -78,7 +78,6 @@ const totalPages = computed(() => {
     <div class="expenses-page">
       <h2 class="expenses-page__subtitle">Keep track on how you spend your hard-earned money</h2>
       <FiltersSection class="expenses-page__filters" @expenses-filtered="handleFilteredExpenses" />
-
       <div class="expenses-page__items-list">
         <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
       </div>
@@ -98,7 +97,7 @@ const totalPages = computed(() => {
         :periods-data="totalsPerMonth"
         :categories-data="totalsPerCategory"
       />
-      <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" />
+      <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" alt="lady with graph" />
     </div>
   </BasePage>
 </template>
@@ -107,8 +106,8 @@ const totalPages = computed(() => {
 .expenses-page {
   width: 100%;
   display: grid;
-  grid-template-rows: 40px 1fr 1.2fr 80px;
-  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 40px 0.7fr 1.2fr 80px;
+  grid-template-columns: minmax(326px, 1.7fr) 1fr;
   grid-column-gap: 100px;
   grid-row-gap: 24px;
 
@@ -122,7 +121,10 @@ const totalPages = computed(() => {
     color: $color-text-secondary;
     grid-row: 1;
     grid-column: 1;
-    align-self: flex-end;
+
+    @include mobile {
+      font-size: 1.3rem;
+    }
   }
   &__filters {
     grid-row: 2/3;
@@ -137,7 +139,7 @@ const totalPages = computed(() => {
   &__items-list {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 16px;
     grid-row: 3/4;
     grid-column: 1;
   }
@@ -149,9 +151,6 @@ const totalPages = computed(() => {
   &__image {
     max-width: 320px;
     min-width: 200px;
-    // position: absolute;
-    // right: 200px;
-    // top: 240px;
     justify-self: flex-end;
     grid-row: 1;
     grid-column: 2;

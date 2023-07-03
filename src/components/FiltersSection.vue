@@ -66,16 +66,15 @@ const extractedNames = computed(() => {
   return uniqueNames;
 });
 
-const inputStyle = computed(() => {
-  return {
-    border: '1px solid grey',
-    'border-radius': '4px',
-    padding: '8px 16px',
-    'max-width': '300px',
-    height: '52px',
-    'font-size': '1rem',
-  };
-});
+// const inputStyle = computed(() => {
+//   return {
+//     'border-radius': '4px',
+//     'justify-self': 'stretch',
+//     padding: '8px 16px',
+//     'font-size': '1rem',
+//     height: '52px',
+//   };
+// });
 
 watch(filteredExpenses, (newValue, oldValue) => {
   emit('expenses-filtered', newValue);
@@ -84,51 +83,77 @@ watch(filteredExpenses, (newValue, oldValue) => {
 
 <template>
   <div class="filters-section">
-    <div class="filters-section__category">
-      <v-chip-group v-model="selectedCategory" mandatory="force">
-        <v-chip class="filters-section__category-chip" filter color="#00beba" size="large">
-          <span>All</span>
-        </v-chip>
-        <v-chip class="filters-section__category-chip" filter color="#0094DB" size="large">
-          <span>Car</span>
-          <v-icon class="filters-section__category-chip-icon" icon="mdi-car" size="small"></v-icon>
-        </v-chip>
-        <v-chip class="filters-section__category-chip" filter color="#AB2A64" size="large">
-          <span>Food</span>
-          <v-icon
-            class="filters-section__category-chip-icon"
-            icon="mdi-silverware-variant"
-            size="small"
-          ></v-icon>
-        </v-chip>
-      </v-chip-group>
+    <div class="filters-section__upper-row">
+      <div class="filters-section__category">
+        <v-chip-group v-model="selectedCategory" mandatory="force">
+          <v-chip
+            class="filters-section__category-chip"
+            filter
+            color="#00beba"
+            size="large"
+            elevation="1"
+          >
+            <span>All</span>
+          </v-chip>
+          <v-chip
+            class="filters-section__category-chip"
+            filter
+            color="#00beba"
+            size="large"
+            elevation="1"
+          >
+            <span>Car</span>
+            <v-icon
+              class="filters-section__category-chip-icon"
+              icon="mdi-car"
+              size="small"
+            ></v-icon>
+          </v-chip>
+          <v-chip
+            class="filters-section__category-chip"
+            filter
+            color="#00beba"
+            size="large"
+            elevation="1"
+          >
+            <span>Food</span>
+            <v-icon
+              class="filters-section__category-chip-icon"
+              icon="mdi-silverware-variant"
+              size="small"
+            ></v-icon>
+          </v-chip>
+        </v-chip-group>
+      </div>
+
+      <div class="filters-section__date">
+        <Datepicker
+          class="date-input"
+          v-model="selectedStartDate"
+          :lower-limit="new Date('2022-07-16')"
+          :upper-limit="new Date('2022-09-16')"
+          placeholder="Choose start date"
+          typeable
+          clearable
+        />
+        <Datepicker
+          class="date-input"
+          v-model="selectedEndDate"
+          :lower-limit="new Date('2022-07-16')"
+          :upper-limit="new Date('2022-09-16')"
+          placeholder="Choose end date"
+          typeable
+          clearable
+        />
+      </div>
     </div>
 
-    <div class="filters-section__date">
-      <Datepicker
-        v-model="selectedStartDate"
-        :lower-limit="new Date('2022-07-16')"
-        :upper-limit="new Date('2022-09-16')"
-        placeholder="Choose start date"
-        :style="inputStyle"
-        typeable
-        clearable
-      />
-      <Datepicker
-        v-model="selectedEndDate"
-        :lower-limit="new Date('2022-07-16')"
-        :upper-limit="new Date('2022-09-16')"
-        placeholder="Choose end date"
-        :style="inputStyle"
-        typeable
-        clearable
-      />
-    </div>
     <div class="filters-section__name">
       <v-autocomplete
         v-model="selectedName"
         :items="extractedNames"
         label="Search expense by name"
+        variant="solo"
         hide-details
         clearable
       />
@@ -144,13 +169,20 @@ watch(filteredExpenses, (newValue, oldValue) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.date-input {
+  border-radius: $border-radius;
+  height: 52px;
+  box-shadow: $box-shadow;
+  padding-left: 16px;
+}
+
 .filters-section {
   margin: 36px 0 48px;
   gap: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  //justify-content: space-between;
   color: $color-text-secondary;
   font-size: 0.9rem;
 
@@ -162,14 +194,31 @@ watch(filteredExpenses, (newValue, oldValue) => {
   @include mobile {
     display: flex;
     flex-direction: column;
+    margin: 24px 0 36px;
+  }
+
+  &__upper-row {
+    display: flex;
+    //flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    // flex-direction: column;
+    gap: 16px;
+    // @include mobile {
+    //   flex-direction: row;
+    //   justify-content: space-between;
+    //   flex-wrap: wrap;
+    // }
   }
 
   &__date {
     display: flex;
     gap: 16px;
+    width: fit-content;
 
     @include mobile {
-      flex-direction: column;
+      flex-wrap: wrap;
     }
   }
 
@@ -182,8 +231,12 @@ watch(filteredExpenses, (newValue, oldValue) => {
   }
 
   &__clear {
+    color: $color-text-secondary;
     width: fit-content;
     justify-self: flex-end;
+    @include mobile {
+      font-size: 0.9rem;
+    }
   }
 
   &__summary {
@@ -192,6 +245,10 @@ watch(filteredExpenses, (newValue, oldValue) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include mobile {
+      font-size: 1rem;
+    }
   }
 }
 

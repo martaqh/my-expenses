@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, computed } from 'vue';
 
 const navTabs = ['Dashboard', 'Reports', 'Expenses', 'Settings', 'Profile', 'Logout'];
 
@@ -63,6 +62,7 @@ const activeTab = ref('Expenses');
 
   @include mobile {
     margin: 16px auto;
+    font-size: 0.5rem;
     flex-wrap: wrap;
   }
 

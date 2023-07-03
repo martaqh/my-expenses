@@ -35,8 +35,8 @@ const getCategoryIcon = (category: Category) => {
           <PriceItem :amount="item.total" currency="PLN"></PriceItem>
         </div>
       </div>
-      <v-divider></v-divider>
-      <div class="summary-view__subtotals-section">
+      <v-divider class="summary-view__subtotals-divider" />
+      <div class="summary-view__subtotals-section categories">
         <div class="summary-view__subtotals-section-item" v-for="item in categoriesData">
           <v-icon :icon="getCategoryIcon(item.category)" />
           <PriceItem :amount="item.total" currency="PLN"></PriceItem>
@@ -53,12 +53,15 @@ const getCategoryIcon = (category: Category) => {
   flex-direction: column;
   border-radius: $border-radius;
   border: 2px solid $color-accent;
+  box-shadow: $box-shadow;
+  @include mobile {
+    font-size: 1rem;
+  }
 
   &__total {
     padding: 24px;
     display: flex;
     justify-content: center;
-
     text-transform: uppercase;
     font-size: 1.5rem;
     background-color: $color-accent;
@@ -75,12 +78,26 @@ const getCategoryIcon = (category: Category) => {
     padding: 48px;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 36px;
     font-size: 1.2rem;
 
+    @include mobile {
+      justify-content: space-around;
+      font-size: 1rem;
+      flex-direction: row;
+      padding: 24px;
+    }
+
+    &-divider {
+      @include mobile {
+        display: none;
+      }
+    }
+
     &-section {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       flex-direction: column;
       gap: 16px;
 
@@ -88,6 +105,7 @@ const getCategoryIcon = (category: Category) => {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 16px;
       }
     }
   }

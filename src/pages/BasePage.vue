@@ -41,7 +41,7 @@ const formattedTitle = computed(() => {
   }
 
   @include mobile {
-    padding: 5rem 2rem;
+    padding: 6rem 1.5rem;
   }
 }
 </style>
