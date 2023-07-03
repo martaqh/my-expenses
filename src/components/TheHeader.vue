@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-
-const navTabs = ['Dashboard', 'Reports', 'Expenses', 'Settings', 'Profile', 'Logout'];
+import { useRoute } from 'vue-router';
+import { navTabs } from '@/data';
 
 const activeTab = ref('Expenses');
 </script>
@@ -39,7 +39,7 @@ const activeTab = ref('Expenses');
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: white;
+  background-color: $color-background;
   box-shadow: $box-shadow;
   z-index: 5;
   &__active-label {

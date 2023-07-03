@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { expenses, type Category, type Expense } from '@/data';
-import PriceItem from './PriceItem.vue';
+import { type Category } from '@/data';
+import PriceItem from '@/components/PriceItem.vue';
 
 defineProps<{
   total: number;
@@ -32,14 +32,16 @@ const getCategoryIcon = (category: Category) => {
       <div class="summary-view__subtotals-section">
         <div class="summary-view__subtotals-section-item" v-for="item in periodsData">
           <strong>{{ getMonthName(item.month) }}</strong>
-          <PriceItem :amount="item.total" currency="PLN"></PriceItem>
+          <PriceItem :amount="item.total" currency="PLN" />
         </div>
       </div>
+
       <v-divider class="summary-view__subtotals-divider" />
+
       <div class="summary-view__subtotals-section categories">
         <div class="summary-view__subtotals-section-item" v-for="item in categoriesData">
           <v-icon :icon="getCategoryIcon(item.category)" />
-          <PriceItem :amount="item.total" currency="PLN"></PriceItem>
+          <PriceItem :amount="item.total" currency="PLN" />
         </div>
       </div>
     </div>
@@ -65,7 +67,7 @@ const getCategoryIcon = (category: Category) => {
     text-transform: uppercase;
     font-size: 1.5rem;
     background-color: $color-accent;
-    color: white;
+    color: $color-reverse;
 
     h3 {
       display: flex;

@@ -69,3 +69,5 @@ export const expenses: Expense[] = [
     date: '2022-09-10',
   },
 ];
+
+export const navTabs = ['Dashboard', 'Reports', 'Expenses', 'Settings', 'Profile', 'Logout'];

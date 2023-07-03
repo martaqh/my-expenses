@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import type { Category } from '@/data';
 import { expenses } from '@/data';
 import Datepicker from 'vue3-datepicker';
 
@@ -8,7 +7,6 @@ const emit = defineEmits(['expenses-filtered']);
 
 const selectedStartDate = ref<Date>();
 const selectedEndDate = ref<Date>();
-
 const selectedCategory = ref<0 | 1 | 2>();
 const selectedName = ref('');
 
@@ -60,21 +58,11 @@ const filteredExpenses = computed(() => {
   }
 });
 
-const extractedNames = computed(() => {
+const itemsNames = computed(() => {
   const names = expenses.map((item) => item.name);
   const uniqueNames = [...new Set(names)];
   return uniqueNames;
 });
-
-// const inputStyle = computed(() => {
-//   return {
-//     'border-radius': '4px',
-//     'justify-self': 'stretch',
-//     padding: '8px 16px',
-//     'font-size': '1rem',
-//     height: '52px',
-//   };
-// });
 
 watch(filteredExpenses, (newValue, oldValue) => {
   emit('expenses-filtered', newValue);
@@ -103,11 +91,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
             elevation="1"
           >
             <span>Car</span>
-            <v-icon
-              class="filters-section__category-chip-icon"
-              icon="mdi-car"
-              size="small"
-            ></v-icon>
+            <v-icon class="filters-section__category-chip-icon" icon="mdi-car" size="small" />
           </v-chip>
           <v-chip
             class="filters-section__category-chip"
@@ -121,7 +105,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
               class="filters-section__category-chip-icon"
               icon="mdi-silverware-variant"
               size="small"
-            ></v-icon>
+            />
           </v-chip>
         </v-chip-group>
       </div>
@@ -151,7 +135,7 @@ watch(filteredExpenses, (newValue, oldValue) => {
     <div class="filters-section__name">
       <v-autocomplete
         v-model="selectedName"
-        :items="extractedNames"
+        :items="itemsNames"
         label="Search expense by name"
         variant="solo"
         hide-details
@@ -161,7 +145,6 @@ watch(filteredExpenses, (newValue, oldValue) => {
 
     <div class="filters-section__summary">
       <p>{{ `Items: ${displayedItemsNumber}` }}</p>
-
       <v-btn class="filters-section__clear" @click="clearFilters" elevation="1" size="large">
         Clear all filters
       </v-btn>
@@ -170,19 +153,11 @@ watch(filteredExpenses, (newValue, oldValue) => {
 </template>
 
 <style lang="scss">
-.date-input {
-  border-radius: $border-radius;
-  height: 52px;
-  box-shadow: $box-shadow;
-  padding-left: 16px;
-}
-
 .filters-section {
   margin: 36px 0 48px;
   gap: 16px;
   display: flex;
   flex-direction: column;
-  //justify-content: space-between;
   color: $color-text-secondary;
   font-size: 0.9rem;
 
@@ -199,17 +174,10 @@ watch(filteredExpenses, (newValue, oldValue) => {
 
   &__upper-row {
     display: flex;
-    //flex-direction: row;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    // flex-direction: column;
     gap: 16px;
-    // @include mobile {
-    //   flex-direction: row;
-    //   justify-content: space-between;
-    //   flex-wrap: wrap;
-    // }
   }
 
   &__date {
@@ -252,8 +220,15 @@ watch(filteredExpenses, (newValue, oldValue) => {
   }
 }
 
+.date-input {
+  border-radius: $border-radius;
+  height: 52px;
+  box-shadow: $box-shadow;
+  padding-left: 16px;
+}
+
 .v3dp__datepicker {
-  --vdp-selected-color: #00ddc2;
+  --vdp-selected-bg-color: #00b59f;
   --vdp-hover-bg-color: #00ddc2;
 }
 </style>

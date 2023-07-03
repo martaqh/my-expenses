@@ -13,5 +13,6 @@ import TheHeader from '@/components/TheHeader.vue';
 <style lang="scss" scoped>
 .app {
   font-family: $font-main;
+  color: $color-text-primary;
 }
 </style>

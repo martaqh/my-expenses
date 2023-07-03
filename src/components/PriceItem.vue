@@ -40,7 +40,7 @@ withDefaults(
     color: $color-text-secondary;
     &.large {
       font-size: 1rem;
-      color: white;
+      color: $color-reverse;
     }
   }
 }

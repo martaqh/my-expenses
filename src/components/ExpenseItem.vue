@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import CategoryChip from './CategoryChip.vue';
-import PriceItem from './PriceItem.vue';
+import CategoryChip from '@/components/CategoryChip.vue';
+import PriceItem from '@/components/PriceItem.vue';
 import type { Expense } from '@/data';
 
 defineProps<{
   expense: Expense;
 }>();
-
-const formattedPrice = (price: number) => {
-  return `${price} PLN`;
-};
 </script>
 
 <template>
@@ -26,7 +22,6 @@ const formattedPrice = (price: number) => {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
-
   padding: 20px;
   box-shadow: $box-shadow;
   border-radius: $border-radius;
