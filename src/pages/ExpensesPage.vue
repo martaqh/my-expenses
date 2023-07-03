@@ -107,7 +107,7 @@ const totalPages = computed(() => {
   width: 100%;
   display: grid;
   grid-template-rows: 40px 0.7fr 1.2fr 80px;
-  grid-template-columns: minmax(326px, 1.7fr) 1fr;
+  grid-template-columns: minmax(350px, 1.7fr) 1fr;
   grid-column-gap: 100px;
   grid-row-gap: 24px;
 

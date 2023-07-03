@@ -61,7 +61,7 @@ const getCategoryIcon = (category: Category) => {
   }
 
   &__total {
-    padding: 24px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     text-transform: uppercase;
@@ -77,12 +77,13 @@ const getCategoryIcon = (category: Category) => {
   }
 
   &__subtotals {
-    padding: 48px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap: 36px;
+    gap: 32px;
     font-size: 1.2rem;
+    height: 100%;
 
     @include mobile {
       justify-content: space-around;
@@ -99,9 +100,15 @@ const getCategoryIcon = (category: Category) => {
 
     &-section {
       display: flex;
-      justify-content: space-between;
+      gap: 20px;
       flex-direction: column;
-      gap: 16px;
+
+      &.categories {
+        justify-content: space-around;
+        @include mobile {
+          justify-content: space-between;
+        }
+      }
 
       &-item {
         display: flex;

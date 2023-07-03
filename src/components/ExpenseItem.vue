@@ -62,6 +62,10 @@ const categoryIcon = computed(() => {
   &__category {
     color: $color-text-secondary;
     font-size: 1.3rem;
+    justify-self: center;
+    @include mobile {
+      font-size: 1.1rem;
+    }
   }
 }
 </style>

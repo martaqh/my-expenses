@@ -61,7 +61,8 @@ const activeTab = ref('Expenses');
   margin-right: 24px;
 
   @include mobile {
-    margin: 16px auto;
+    margin: 0;
+    padding: 4px;
     font-size: 0.5rem;
     flex-wrap: wrap;
   }
