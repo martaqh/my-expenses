@@ -3,7 +3,7 @@ withDefaults(
   defineProps<{
     amount: number;
     currency: string;
-    size?: 'default' | 'large';
+    size?: 'default' | 'large' | 'small';
   }>(),
   {
     size: 'default',
@@ -13,8 +13,13 @@ withDefaults(
 
 <template>
   <div class="price-item">
-    <span class="price-item__amount" :class="{ large: size === 'large' }">{{ amount }}</span>
-    <span class="price-item__currency" :class="{ large: size === 'large' }">{{ currency }}</span>
+    <span
+      class="price-item__amount"
+      :class="{ large: size === 'large', small: size === 'small' }"
+      >{{ amount }}</span
+    >
+
+    <span class="price-item__currency" :class="{ [size]: size }">{{ currency }}</span>
   </div>
 </template>
 
@@ -23,8 +28,8 @@ withDefaults(
   display: flex;
   align-items: baseline;
   justify-content: flex-end;
-  gap: 8px;
-
+  gap: 4px;
+  font-weight: 500;
   &__amount {
     font-size: 1.3rem;
     @include mobile {
@@ -34,6 +39,9 @@ withDefaults(
       font-size: 1.8rem;
       font-weight: 700;
     }
+    &.small {
+      font-size: 1rem;
+    }
   }
   &__currency {
     font-size: 0.6rem;
@@ -41,6 +49,9 @@ withDefaults(
     &.large {
       font-size: 1rem;
       color: $color-reverse;
+    }
+    &.small {
+      font-size: 1rem;
     }
   }
 }

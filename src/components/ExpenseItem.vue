@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import PriceItem from '@/components/PriceItem.vue';
-import { expenses, type Expense } from '@/data';
+import { type Expense } from '@/data';
 
 const props = defineProps<{
   expense: Expense;
@@ -35,7 +35,7 @@ const categoryIcon = computed(() => {
   }
 
   &__name {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 1.1rem;
     position: relative;
     &::before {
@@ -55,6 +55,7 @@ const categoryIcon = computed(() => {
 
   &__date {
     color: $color-text-secondary;
+
     @include mobile {
       font-size: 0.7rem;
     }

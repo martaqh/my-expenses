@@ -30,16 +30,24 @@ const getCategoryIcon = (category: Category) => {
 
     <div class="summary-view__subtotals">
       <div class="summary-view__subtotals-section">
-        <div class="summary-view__subtotals-section-item" v-for="item in periodsData">
-          <strong>{{ getMonthName(item.month) }}</strong>
+        <div
+          class="summary-view__subtotals-section-item"
+          v-for="item in periodsData"
+          :key="item.month"
+        >
+          <span>{{ getMonthName(item.month) }}</span>
           <PriceItem :amount="item.total" currency="PLN" />
         </div>
       </div>
 
-      <v-divider class="summary-view__subtotals-divider" />
+      <v-divider class="summary-view__subtotals-divider border-opacity-10" />
 
       <div class="summary-view__subtotals-section categories">
-        <div class="summary-view__subtotals-section-item" v-for="item in categoriesData">
+        <div
+          class="summary-view__subtotals-section-item"
+          v-for="item in categoriesData"
+          :key="item.category"
+        >
           <v-icon :icon="getCategoryIcon(item.category)" />
           <PriceItem :amount="item.total" currency="PLN" />
         </div>
@@ -55,7 +63,7 @@ const getCategoryIcon = (category: Category) => {
   flex-direction: column;
   border-radius: $border-radius;
   border: 2px solid $color-accent;
-  box-shadow: $box-shadow;
+
   @include mobile {
     font-size: 1rem;
   }
@@ -115,6 +123,10 @@ const getCategoryIcon = (category: Category) => {
         align-items: center;
         justify-content: space-between;
         gap: 16px;
+
+        span {
+          font-weight: 500;
+        }
       }
     }
   }

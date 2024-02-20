@@ -2,6 +2,8 @@
 import { ref, computed, watch } from 'vue';
 import { expenses } from '@/data';
 import Datepicker from 'vue3-datepicker';
+import { getTotalExpenses } from '@/helpers';
+import PriceItem from './PriceItem.vue';
 
 const emit = defineEmits(['expenses-filtered']);
 
@@ -19,6 +21,10 @@ const clearFilters = () => {
 
 const displayedItemsNumber = computed(() => {
   return filteredExpenses.value.length;
+});
+
+const displayedSubtotal = computed(() => {
+  return getTotalExpenses(filteredExpenses.value);
 });
 
 const filteredExpenses = computed(() => {
@@ -74,32 +80,14 @@ watch(filteredExpenses, (newValue, oldValue) => {
     <div class="filters-section__upper-row">
       <div class="filters-section__category">
         <v-chip-group v-model="selectedCategory" mandatory="force">
-          <v-chip
-            class="filters-section__category-chip"
-            filter
-            color="#00beba"
-            size="large"
-            elevation="1"
-          >
+          <v-chip class="filters-section__category-chip" filter color="#3B00B9" size="large">
             <span>All</span>
           </v-chip>
-          <v-chip
-            class="filters-section__category-chip"
-            filter
-            color="#00beba"
-            size="large"
-            elevation="1"
-          >
+          <v-chip class="filters-section__category-chip" filter color="#3B00B9" size="large">
             <span>Car</span>
             <v-icon class="filters-section__category-chip-icon" icon="mdi-car" size="small" />
           </v-chip>
-          <v-chip
-            class="filters-section__category-chip"
-            filter
-            color="#00beba"
-            size="large"
-            elevation="1"
-          >
+          <v-chip class="filters-section__category-chip" filter color="#3B00B9" size="large">
             <span>Food</span>
             <v-icon
               class="filters-section__category-chip-icon"
@@ -138,15 +126,27 @@ watch(filteredExpenses, (newValue, oldValue) => {
         :items="itemsNames"
         placeholder="Start typing expense name or select it from the list"
         label="Search expense by name"
-        variant="solo"
         hide-details
         clearable
+        density="compact"
+        variant="outlined"
       />
     </div>
 
     <div class="filters-section__summary">
       <p>{{ `Items: ${displayedItemsNumber}` }}</p>
-      <v-btn class="filters-section__clear" @click="clearFilters" elevation="1" size="large">
+      <p>
+        <span>Subtotal:</span
+        ><PriceItem currency="PLN" :amount="displayedSubtotal" size="small"></PriceItem>
+      </p>
+      <v-btn
+        class="filters-section__clear"
+        @click="clearFilters"
+        size="large"
+        elevation="0"
+        color="#6E33E4"
+        variant="plain"
+      >
         Clear all filters
       </v-btn>
     </div>
@@ -155,7 +155,6 @@ watch(filteredExpenses, (newValue, oldValue) => {
 
 <style lang="scss">
 .filters-section {
-  margin: 36px 0 48px;
   gap: 16px;
   display: flex;
   flex-direction: column;
@@ -177,15 +176,21 @@ watch(filteredExpenses, (newValue, oldValue) => {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
   }
 
   &__date {
     display: flex;
-    gap: 8px;
+    gap: 16px;
+    width: fit-content;
 
     @include mobile {
-      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-between;
+
+      * {
+        width: 100%;
+      }
     }
   }
 
@@ -213,24 +218,42 @@ watch(filteredExpenses, (newValue, oldValue) => {
     align-items: center;
     font-size: 1rem;
 
+    @include tablet {
+      font-size: 0.8rem;
+
+      * {
+        font-size: 0.8rem !important;
+      }
+    }
+
     @include mobile {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+
+      * {
+        font-size: 0.8rem !important;
+      }
+    }
+
+    p {
+      display: flex;
+      gap: 4px;
     }
   }
 }
 
 .date-input {
   border-radius: $border-radius;
-  height: 52px;
   box-shadow: $box-shadow;
-  padding-left: 16px;
+  height: fit-content;
+  padding: 8px;
+
   @include mobile {
     font-size: 0.9rem;
   }
 }
 
 .v3dp__datepicker {
-  --vdp-selected-bg-color: #00b59f;
-  --vdp-hover-bg-color: #00ddc2;
+  --vdp-selected-bg-color: #3b00b9;
+  --vdp-hover-bg-color: #7e36f3;
 }
 </style>

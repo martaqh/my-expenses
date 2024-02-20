@@ -12,6 +12,7 @@ const activeTab = ref('Expenses');
     <ul class="top-nav">
       <router-link
         v-for="tab of navTabs"
+        :key="tab"
         :to="{ name: tab, params: { title: tab.toLowerCase() } }"
         class="top-nav__item"
         :class="{ active: activeTab === tab }"
@@ -71,7 +72,7 @@ const activeTab = ref('Expenses');
     padding: 24px;
     text-transform: uppercase;
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 600;
     color: $color-accent;
     @include mobile {
       font-size: 0.8rem;
@@ -80,12 +81,13 @@ const activeTab = ref('Expenses');
 
     &:hover {
       cursor: pointer;
-      color: $color-accent;
-      text-shadow: 0px 0px 15px $color-accent;
+      color: $color-accent-dark;
+      font-weight: 900;
       transition: all 0.2s ease-in;
     }
 
     &.active {
+      font-weight: 900;
       span {
         border-bottom: 2px solid $color-accent;
       }

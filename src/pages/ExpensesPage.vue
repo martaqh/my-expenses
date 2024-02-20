@@ -6,13 +6,7 @@ import SummaryView from '@/components/SummaryView.vue';
 import FiltersSection from '@/components/FiltersSection.vue';
 import { expenses } from '@/data';
 import type { Expense, Category } from '@/data';
-
-const getTotalExpenses = (expencesData: Expense[]) => {
-  const expencesSum = expencesData.reduce((accumulator, currentItem) => {
-    return accumulator + currentItem.price;
-  }, 0);
-  return expencesSum;
-};
+import { getTotalExpenses } from '@/helpers';
 
 const extractedMonths = computed(() => {
   const dates = expenses.map((item) => item.date);
@@ -79,7 +73,7 @@ const totalPages = computed(() => {
       <h2 class="expenses-page__subtitle">Keep track on how you spend your hard-earned money</h2>
       <FiltersSection class="expenses-page__filters" @expenses-filtered="handleFilteredExpenses" />
       <div class="expenses-page__items-list">
-        <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" />
+        <ExpenseItem v-for="item of paginatedExpenseItems" :expense="item" :key="item.name" />
       </div>
       <v-pagination
         class="expenses-page__pagination"
@@ -87,7 +81,7 @@ const totalPages = computed(() => {
         :length="totalPages"
         :total-visible="itemsPerPage"
         :items-per-page="itemsPerPage"
-        active-color="teal-accent-4"
+        active-color="#7e36f3"
         prev-icon="mdi-chevron-left"
         next-icon="mdi-chevron-right"
       />
@@ -97,7 +91,11 @@ const totalPages = computed(() => {
         :periods-data="totalsPerMonth"
         :categories-data="totalsPerCategory"
       />
-      <img class="expenses-page__image" src="/src/assets/undraw_graph.svg" alt="lady with graph" />
+      <img
+        class="expenses-page__image"
+        src="/src/assets/undraw_graph.svg"
+        alt="lady with a graph"
+      />
     </div>
   </BasePage>
 </template>
@@ -109,11 +107,12 @@ const totalPages = computed(() => {
   grid-template-rows: 40px 0.7fr 1.2fr 80px;
   grid-template-columns: minmax(350px, 1.7fr) 1fr;
   grid-column-gap: 100px;
-  grid-row-gap: 24px;
+  grid-row-gap: 48px;
 
   @include mobile {
     display: flex;
     flex-direction: column;
+    grid-row-gap: 24px;
   }
 
   &__subtitle {
@@ -149,11 +148,13 @@ const totalPages = computed(() => {
   }
 
   &__image {
-    max-width: 320px;
+    max-width: 350px;
     min-width: 200px;
-    justify-self: flex-end;
-    grid-row: 1;
+
+    grid-row: 1/3;
     grid-column: 2;
+    justify-self: flex-end;
+    align-self: flex-end;
     @include mobile {
       display: none;
     }

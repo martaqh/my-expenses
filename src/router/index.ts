@@ -9,16 +9,11 @@ const router = createRouter({
     },
     {
       path: '/:title',
-      name: 'Dashboard',
+      name: 'About',
       component: () => import('@/pages/BasePage.vue'),
       props: true,
     },
-    {
-      path: '/:title',
-      name: 'Reports',
-      component: () => import('@/pages/BasePage.vue'),
-      props: true,
-    },
+
     {
       path: '/expenses',
       name: 'Expenses',
@@ -31,12 +26,7 @@ const router = createRouter({
       component: () => import('@/pages/BasePage.vue'),
       props: true,
     },
-    {
-      path: '/:title',
-      name: 'Profile',
-      component: () => import('@/pages/BasePage.vue'),
-      props: true,
-    },
+
     {
       path: '/:title',
       name: 'Logout',

@@ -70,4 +70,4 @@ export const expenses: Expense[] = [
   },
 ];
 
-export const navTabs = ['Dashboard', 'Reports', 'Expenses', 'Settings', 'Profile', 'Logout'];
+export const navTabs = ['About', 'Expenses', 'Settings', 'Logout'];
