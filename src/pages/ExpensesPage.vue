@@ -8,21 +8,25 @@ import { expenses } from '@/data';
 import type { Expense, Category } from '@/data';
 import { getTotalExpenses } from '@/helpers';
 
-const extractedMonths = computed(() => {
+const DATE_SEPARATOR = '-';
+const DEFAULT_PAGE = 1;
+const ITEMS_PER_PAGE = 5;
+
+const uniqueMonths = computed(() => {
   const dates = expenses.map((item) => item.date);
-  const months = dates.map((date) => date.split('-')[1]);
+  const months = dates.map((date) => date.split(DATE_SEPARATOR)[1]);
   const uniqueMonths = [...new Set(months)];
   return uniqueMonths;
 });
 
-const extractedCategories = computed(() => {
+const uniqueCategories = computed(() => {
   const categories = expenses.map((item) => item.category);
   const uniqueCategories = [...new Set(categories)];
   return uniqueCategories;
 });
 
 const getTotalForMonth = (month: string) => {
-  const monthlyExpenses = expenses.filter((item) => item.date.split('-')[1] === month);
+  const monthlyExpenses = expenses.filter((item) => item.date.split(DATE_SEPARATOR)[1] === month);
   return getTotalExpenses(monthlyExpenses);
 };
 
@@ -33,7 +37,7 @@ const getTotalForCategory = (category: Category) => {
 
 const totalsPerMonth = computed(() => {
   const periodsAndTotals = [];
-  for (let month of extractedMonths.value) {
+  for (let month of uniqueMonths.value) {
     periodsAndTotals.push({ month: parseInt(month), total: getTotalForMonth(month) });
   }
   return periodsAndTotals;
@@ -41,15 +45,13 @@ const totalsPerMonth = computed(() => {
 
 const totalsPerCategory = computed(() => {
   const categoriesAndTotals = [];
-  for (let category of extractedCategories.value) {
-    categoriesAndTotals.push({ category: category, total: getTotalForCategory(category) });
+  for (let category of uniqueCategories.value) {
+    categoriesAndTotals.push({ category, total: getTotalForCategory(category) });
   }
   return categoriesAndTotals;
 });
 
-const page = ref(1);
-const itemsPerPage = 5;
-
+const page = ref(DEFAULT_PAGE);
 const filteredData = ref<Expense[]>(expenses);
 
 const handleFilteredExpenses = (newValue: Expense[]) => {
@@ -57,13 +59,13 @@ const handleFilteredExpenses = (newValue: Expense[]) => {
 };
 
 const paginatedExpenseItems = computed(() => {
-  const startIndex = (page.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const startIndex = (page.value - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
   return filteredData.value.slice(startIndex, endIndex);
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(filteredData.value.length / itemsPerPage);
+  return Math.ceil(filteredData.value.length / ITEMS_PER_PAGE);
 });
 </script>
 
@@ -79,8 +81,8 @@ const totalPages = computed(() => {
         class="expenses-page__pagination"
         v-model="page"
         :length="totalPages"
-        :total-visible="itemsPerPage"
-        :items-per-page="itemsPerPage"
+        :total-visible="ITEMS_PER_PAGE"
+        :items-per-page="ITEMS_PER_PAGE"
         active-color="#7e36f3"
         prev-icon="mdi-chevron-left"
         next-icon="mdi-chevron-right"
